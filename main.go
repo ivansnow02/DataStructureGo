@@ -1,6 +1,7 @@
 package main
 
 import (
+	"DataStructure/List"
 	"fmt"
 	"reflect"
 )
@@ -10,33 +11,33 @@ func main() {
 	a := []interface{}{1, "2", true, "a", 1000}
 	n := 5
 
-	list := newSqList()
-	list.createList(arrayToInterface(a), n)
-	list.dispList()
+	list := List.NewSqList()
+	list.CreateList(arrayToInterface(a), n)
+	list.DispList()
 	fmt.Println("-------------------------")
 	fmt.Println("添加元素1:")
-	list.add(1)
-	list.dispList()
+	list.Add(1)
+	list.DispList()
 	fmt.Println("-------------------------")
-	fmt.Println("第二个元素是:", list.getElem(2))
+	fmt.Println("第二个元素是:", list.GetElem(2))
 	fmt.Println("-------------------------")
 	fmt.Println("将第二个元素修改为\"changed\":")
-	list.setElem(2, "changed")
-	list.dispList()
+	list.SetElem(2, "changed")
+	list.DispList()
 	fmt.Println("-------------------------")
 	fmt.Println("在第3个位置插入\"insert\"")
-	list.insert(3, "insert")
-	list.dispList()
+	list.Insert(3, "insert")
+	list.DispList()
 	fmt.Println("-------------------------")
 	fmt.Println("删除第5个元素")
-	list.delete(5)
-	list.dispList()
+	list.Delete(5)
+	list.DispList()
 	fmt.Println("-------------------------")
-	fmt.Println("顺序表长度是:", list.length)
+	fmt.Println("顺序表长度是:", list.Length)
 	fmt.Println("-------------------------")
-	fmt.Println("a是第几个元素:", list.getNo("a"))
+	fmt.Println("a是第几个元素:", list.GetNo("a"))
 	fmt.Println("-------------------------")
-	list.dispList()
+	list.DispList()
 }
 
 func arrayToInterface(x interface{}) []interface{} {

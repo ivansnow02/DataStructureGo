@@ -1,6 +1,8 @@
 package List
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type LinkNode struct {
 	data interface{}
@@ -20,22 +22,66 @@ func NewLinkNodeWithData(d interface{}) *LinkNode {
 }
 
 type LinkList struct {
-	head *LinkNode
-	tail *LinkNode
+	head   *LinkNode
+	tail   *LinkNode
+	length int
 }
 
+// CreateListF 头插法建表
 func (l LinkList) CreateListF(a []interface{}, n int) {
-	for i := 0; i < n; i++ {
-		s := NewLinkNodeWithData(a[i])
-		s.next = l.head.next
-		l.head.next = s
+	newNode := NewLinkNodeWithData(a[0])
+	l.head.next = newNode
+	l.tail = newNode
+	for i := 1; i < n; i++ {
+		l.Insert(0, a[i])
 	}
-
 }
 
+// CreateListR 尾插法建表
+func (l LinkList) CreateListR(a []interface{}, n int) {
+	newNode := NewLinkNodeWithData(a[0])
+	l.head.next = newNode
+	l.tail = newNode
+	for i := 1; i < n; i++ {
+		newNode := NewLinkNodeWithData(a[i])
+		l.tail.next = newNode
+		l.tail = newNode
+	}
+	l.tail.next = nil
+}
+
+// Insert 在第i个位置插入元素
+func (l LinkList) Insert(i int, e interface{}) bool {
+	if i < 0 {
+		return false
+	}
+	s := NewLinkNodeWithData(e)
+	p := l.GetI(i - 1)
+	if p != nil {
+		s.next = p.next
+		p.next = s
+		l.length++
+		return true
+	} else {
+		return false
+	}
+}
+
+// GetI 返回第i个元素
+func (l LinkList) GetI(i int) *LinkNode {
+	p := l.head
+	for j := -1; j < i && p != nil; j++ {
+		p = p.next
+	}
+	return p
+}
+
+// NewLinkList 初始化
 func NewLinkList() *LinkList {
 	return &LinkList{
-		head: NewLinkNode(),
+		head:   NewLinkNode(),
+		tail:   NewLinkNode(),
+		length: 0,
 	}
 }
 
@@ -54,4 +100,8 @@ func TestLinkedList() {
 	list := NewLinkList()
 	list.CreateListF(a, n)
 	list.DispList()
+	list2 := NewLinkList()
+	list2.CreateListR(a, n)
+	list2.DispList()
+	//fmt.Println(list.GetI(1))
 }

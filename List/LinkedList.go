@@ -117,6 +117,7 @@ func (l *LinkList) Delete(i int) bool {
 		if q != nil {
 			p.next = q.next
 			q = nil
+			l.length--
 			return true
 		} else {
 			return false
